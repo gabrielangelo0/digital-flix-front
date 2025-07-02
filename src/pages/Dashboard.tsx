@@ -81,7 +81,7 @@ const Dashboard = () => {
       {/* Header */}
       <header className="bg-card/80 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-primary">CineStreaming</h1>
+          <h1 className="text-2xl font-bold text-primary">Digitalflix</h1>
           
           <div className="flex items-center gap-4">
             <div className="relative max-w-md">

@@ -74,7 +74,7 @@ const ContentNotFound = () => {
         {/* Netflix-style footer */}
         <div className="mt-8">
           <p className="text-sm text-muted-foreground">
-            CineStreaming • Sua plataforma de filmes favorita
+            Digitalflix • Sua plataforma de filmes favorita
           </p>
         </div>
       </div>

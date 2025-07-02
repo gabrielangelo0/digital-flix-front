@@ -17,8 +17,8 @@
     --popover-foreground: 0 0% 95%;
 
     /* Netflix Red Primary */
-    --primary: 0 83% 47%;
-    --primary-foreground: 0 0% 100%;
+    --primary: #c80d66;
+    --primary-foreground: #c80d66;
 
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 90%;

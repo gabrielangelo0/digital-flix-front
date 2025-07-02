@@ -22,7 +22,7 @@ const Login = () => {
       if (email && password) {
         toast({
           title: "Login realizado com sucesso!",
-          description: "Bem-vindo de volta ao CineStreaming",
+          description: "Bem-vindo de volta ao Digitalflix",
         });
         navigate("/dashboard");
       } else {
@@ -40,7 +40,7 @@ const Login = () => {
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary mb-2">CineStreaming</h1>
+          <h1 className="text-4xl font-bold text-primary mb-2">Digitalflix</h1>
           <p className="text-muted-foreground">Sua plataforma de filmes favorita</p>
         </div>
 
