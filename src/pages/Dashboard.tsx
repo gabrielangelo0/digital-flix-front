@@ -98,6 +98,10 @@ const Dashboard = () => {
               <User className="h-5 w-5" />
             </Button>
             
+            <Button variant="outline" onClick={() => navigate("/admin")}>
+              Admin
+            </Button>
+            
             <Button variant="ghost" size="icon" onClick={handleLogout}>
               <LogOut className="h-5 w-5" />
             </Button>
