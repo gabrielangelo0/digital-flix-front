@@ -30,6 +30,7 @@ const Admin = () => {
     featured: false,
     description: "",
     year: new Date().getFullYear(),
+    trailerUrl: "",
   });
 
   const genres = [
@@ -101,6 +102,7 @@ const Admin = () => {
       featured: movie.featured,
       description: movie.description || "",
       year: movie.year || new Date().getFullYear(),
+      trailerUrl: movie.trailerUrl || "",
     });
     setIsDialogOpen(true);
   };
@@ -132,6 +134,7 @@ const Admin = () => {
       featured: false,
       description: "",
       year: new Date().getFullYear(),
+      trailerUrl: "",
     });
   };
 
@@ -264,6 +267,17 @@ const Admin = () => {
                       onChange={(e) => setFormData({...formData, description: e.target.value})}
                       placeholder="Descrição do filme..."
                       rows={3}
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="trailerUrl">URL do Trailer</Label>
+                    <Input
+                      id="trailerUrl"
+                      type="url"
+                      value={formData.trailerUrl}
+                      onChange={(e) => setFormData({...formData, trailerUrl: e.target.value})}
+                      placeholder="https://www.youtube.com/watch?v=..."
                     />
                   </div>
 

@@ -9,6 +9,7 @@ export interface Movie {
   featured: boolean;
   description?: string;
   year?: number;
+  trailerUrl?: string;
 }
 
 const api = axios.create({

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, User, LogOut, Play } from "lucide-react";
+import { Search, User, LogOut, Play, PlayCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import VideoPlayer from "@/components/VideoPlayer";
 import movie1 from "@/assets/movie1.jpg";
 import movie2 from "@/assets/movie2.jpg";
 import movie3 from "@/assets/movie3.jpg";
@@ -19,6 +20,7 @@ const movies = [
     rating: 8.5,
     image: movie1,
     featured: true,
+    trailerUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 2,
@@ -35,6 +37,7 @@ const movies = [
     rating: 9.1,
     image: movie3,
     featured: true,
+    trailerUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 4,
@@ -64,6 +67,7 @@ const movies = [
 
 const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTrailer, setSelectedTrailer] = useState<{ url: string; title: string } | null>(null);
   const navigate = useNavigate();
   
   const featuredMovies = movies.filter(movie => movie.featured);
@@ -169,11 +173,25 @@ const Dashboard = () => {
                       className="w-full h-64 object-cover group-hover:brightness-110 transition-all duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <Button variant="netflix" size="sm" className="w-full">
+                    <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+                      <Button variant="netflix" size="sm" className="flex-1">
                         <Play className="mr-2 h-4 w-4" />
                         Assistir
                       </Button>
+                      {movie.trailerUrl && (
+                        <Button 
+                          variant="netflix-outline" 
+                          size="sm" 
+                          className="flex-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedTrailer({ url: movie.trailerUrl!, title: movie.title });
+                          }}
+                        >
+                          <PlayCircle className="mr-2 h-4 w-4" />
+                          Trailer
+                        </Button>
+                      )}
                     </div>
                   </div>
                   <CardContent className="p-4">
@@ -190,6 +208,13 @@ const Dashboard = () => {
           )}
         </section>
       </main>
+
+      <VideoPlayer
+        isOpen={!!selectedTrailer}
+        onClose={() => setSelectedTrailer(null)}
+        videoUrl={selectedTrailer?.url || ""}
+        title={selectedTrailer?.title || ""}
+      />
     </div>
   );
 };
