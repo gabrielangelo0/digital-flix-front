@@ -98,7 +98,7 @@ const Dashboard = () => {
               />
             </div>
             
-            <Button variant="ghost" size="icon">
+            <Button variant="ghost" size="icon" onClick={() => navigate("/profile")}>
               <User className="h-5 w-5" />
             </Button>
             
@@ -128,11 +128,19 @@ const Dashboard = () => {
                 <h2 className="text-4xl font-bold mb-2">{featuredMovies[0]?.title}</h2>
                 <p className="text-lg text-muted-foreground mb-4">{featuredMovies[0]?.genre}</p>
                 <div className="flex gap-4">
-                  <Button variant="netflix" size="lg">
+                  <Button 
+                    variant="netflix" 
+                    size="lg"
+                    onClick={() => navigate(`/watch?id=${featuredMovies[0]?.id}&title=${encodeURIComponent(featuredMovies[0]?.title || '')}`)}
+                  >
                     <Play className="mr-2 h-5 w-5" />
                     Assistir Agora
                   </Button>
-                  <Button variant="netflix-outline" size="lg">
+                  <Button 
+                    variant="netflix-outline" 
+                    size="lg"
+                    onClick={() => navigate(`/movie-details?id=${featuredMovies[0]?.id}`)}
+                  >
                     Mais Informações
                   </Button>
                 </div>
@@ -165,6 +173,7 @@ const Dashboard = () => {
                 <Card
                   key={movie.id}
                   className="group hover:scale-105 transition-all duration-300 bg-card border-border hover:shadow-netflix cursor-pointer overflow-hidden"
+                  onClick={() => navigate(`/movie-details?id=${movie.id}`)}
                 >
                   <div className="relative">
                     <img
@@ -174,7 +183,15 @@ const Dashboard = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-                      <Button variant="netflix" size="sm" className="flex-1">
+                      <Button 
+                        variant="netflix" 
+                        size="sm" 
+                        className="flex-1"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/watch?id=${movie.id}&title=${encodeURIComponent(movie.title)}`);
+                        }}
+                      >
                         <Play className="mr-2 h-4 w-4" />
                         Assistir
                       </Button>
