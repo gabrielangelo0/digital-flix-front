@@ -21,6 +21,7 @@ const movies = [
     image: movie1,
     featured: true,
     trailerUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 2,
@@ -29,6 +30,7 @@ const movies = [
     rating: 7.8,
     image: movie2,
     featured: false,
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 3,
@@ -38,6 +40,7 @@ const movies = [
     image: movie3,
     featured: true,
     trailerUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ const movies = [
     rating: 7.3,
     image: movie4,
     featured: false,
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 5,
@@ -54,6 +58,7 @@ const movies = [
     rating: 8.0,
     image: movie5,
     featured: false,
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
   {
     id: 6,
@@ -62,6 +67,7 @@ const movies = [
     rating: 8.7,
     image: movie6,
     featured: true,
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
   },
 ];
 
@@ -131,7 +137,7 @@ const Dashboard = () => {
                   <Button 
                     variant="netflix" 
                     size="lg"
-                    onClick={() => navigate(`/watch?id=${featuredMovies[0]?.id}&title=${encodeURIComponent(featuredMovies[0]?.title || '')}`)}
+                    onClick={() => navigate(`/watch?id=${featuredMovies[0]?.id}&title=${encodeURIComponent(featuredMovies[0]?.title || '')}&videoUrl=${encodeURIComponent(featuredMovies[0]?.videoUrl || '')}`)}
                   >
                     <Play className="mr-2 h-5 w-5" />
                     Assistir Agora
@@ -183,15 +189,15 @@ const Dashboard = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
-                      <Button 
-                        variant="netflix" 
-                        size="sm" 
-                        className="flex-1"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/watch?id=${movie.id}&title=${encodeURIComponent(movie.title)}`);
-                        }}
-                      >
+                        <Button 
+                          variant="netflix" 
+                          size="sm" 
+                          className="flex-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/watch?id=${movie.id}&title=${encodeURIComponent(movie.title)}&videoUrl=${encodeURIComponent(movie.videoUrl || '')}`);
+                          }}
+                        >
                         <Play className="mr-2 h-4 w-4" />
                         Assistir
                       </Button>

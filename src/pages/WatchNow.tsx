@@ -13,11 +13,23 @@ import {
   SkipForward
 } from "lucide-react";
 
+const getYouTubeEmbedUrl = (url: string): string => {
+  const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+  const match = url.match(youtubeRegex);
+  
+  if (match) {
+    return `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0&controls=0&showinfo=0&modestbranding=1`;
+  }
+  
+  return url;
+};
+
 const WatchNow = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const movieId = searchParams.get("id");
   const movieTitle = searchParams.get("title") || "Filme";
+  const videoUrl = searchParams.get("videoUrl") || "";
   
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
@@ -51,22 +63,35 @@ const WatchNow = () => {
   };
 
   const progressPercentage = (currentTime / duration) * 100;
+  const embedUrl = videoUrl ? getYouTubeEmbedUrl(videoUrl) : "";
 
   return (
     <div 
-      className="fixed inset-0 bg-background text-foreground overflow-hidden cursor-none"
+      className={`fixed inset-0 bg-background text-foreground overflow-hidden ${showControls ? 'cursor-default' : 'cursor-none'}`}
       onMouseMove={() => setShowControls(true)}
     >
-      {/* Video placeholder */}
-      <div className="absolute inset-0 bg-gradient-to-br from-netflix-dark via-muted to-card">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-6xl font-bold mb-4">{movieTitle}</h1>
-            <p className="text-xl text-muted-foreground">
-              {isPlaying ? "Reproduzindo..." : "Pausado"}
-            </p>
+      {/* Video container */}
+      <div className="absolute inset-0">
+        {embedUrl ? (
+          <iframe
+            src={embedUrl}
+            title={`Assistindo - ${movieTitle}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-netflix-dark via-muted to-card">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <h1 className="text-6xl font-bold mb-4">{movieTitle}</h1>
+                <p className="text-xl text-muted-foreground">
+                  {isPlaying ? "Reproduzindo..." : "Pausado"}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Controls overlay */}
