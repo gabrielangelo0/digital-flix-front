@@ -18,7 +18,7 @@ const getYouTubeEmbedUrl = (url: string): string => {
   const match = url.match(youtubeRegex);
   
   if (match) {
-    return `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0&controls=0&showinfo=0&modestbranding=1`;
+    return `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0&controls=1&showinfo=0&modestbranding=1`;
   }
   
   return url;
@@ -67,7 +67,7 @@ const WatchNow = () => {
 
   return (
     <div 
-      className={`fixed inset-0 bg-background text-foreground overflow-hidden ${showControls ? 'cursor-default' : 'cursor-none'}`}
+      className="fixed inset-0 bg-background text-foreground overflow-hidden cursor-default"
       onMouseMove={() => setShowControls(true)}
     >
       {/* Video container */}
@@ -125,90 +125,18 @@ const WatchNow = () => {
           </Button>
         </div>
 
-        {/* Center play/pause button */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="w-20 h-20 bg-background/20 hover:bg-background/40 backdrop-blur-sm rounded-full"
-          >
-            {isPlaying ? (
-              <Pause className="h-8 w-8" />
-            ) : (
-              <Play className="h-8 w-8 ml-1" />
-            )}
-          </Button>
-        </div>
 
-        {/* Bottom controls */}
+        {/* Minimal bottom controls - only back button */}
         <div className="absolute bottom-0 left-0 right-0 p-6">
-          {/* Progress bar */}
-          <div className="mb-4">
-            <div className="w-full bg-muted/30 rounded-full h-1 mb-2">
-              <div 
-                className="bg-primary h-1 rounded-full transition-all duration-100"
-                style={{ width: `${progressPercentage}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-sm text-muted-foreground">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
-          </div>
-
-          {/* Control buttons */}
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center">
             <Button
               variant="ghost"
-              size="icon"
+              size="lg"
+              onClick={() => navigate("/dashboard")}
               className="bg-background/20 hover:bg-background/40 backdrop-blur-sm"
             >
-              <SkipBack className="h-5 w-5" />
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="bg-background/20 hover:bg-background/40 backdrop-blur-sm w-12 h-12"
-            >
-              {isPlaying ? (
-                <Pause className="h-6 w-6" />
-              ) : (
-                <Play className="h-6 w-6 ml-1" />
-              )}
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="bg-background/20 hover:bg-background/40 backdrop-blur-sm"
-            >
-              <SkipForward className="h-5 w-5" />
-            </Button>
-
-            <div className="mx-4 h-6 w-px bg-muted" />
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMuted(!isMuted)}
-              className="bg-background/20 hover:bg-background/40 backdrop-blur-sm"
-            >
-              {isMuted ? (
-                <VolumeX className="h-5 w-5" />
-              ) : (
-                <Volume2 className="h-5 w-5" />
-              )}
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="bg-background/20 hover:bg-background/40 backdrop-blur-sm"
-            >
-              <Maximize className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5 mr-2" />
+              Voltar ao Dashboard
             </Button>
           </div>
         </div>
